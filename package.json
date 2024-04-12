@@ -20,6 +20,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
+    "build:prefix": "gatsby build --prefix-paths",
     "develop": "gatsby develop -p 3005",
     "clean": "gatsby clean",
     "extract": "formatjs extract 'src/**/*.{ts,js,tsx,jsx}' --out-file i18n-extracted.json",
