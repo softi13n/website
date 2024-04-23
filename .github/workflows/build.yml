@@ -1,0 +1,49 @@
+name: build frontend and push build to backend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout frontend repo
+        uses: actions/checkout@v4
+        with:
+          path: frontend
+
+      - name: setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+
+      - name: install dependencies
+        run: |
+          cd $GITHUB_WORKSPACE/frontend
+          npm install --legacy-peer-deps
+
+      - name: build frontend
+        run: |
+          cd $GITHUB_WORKSPACE/frontend
+          PREFIX_PATHS=true npm run build
+
+      - name: checkout backend repo
+        uses: actions/checkout@v4
+        with:
+          repository: softi13n/website_django
+          token: ${{ secrets.GH_PAT }}
+          path: backend
+
+      - name: push build to backend Repo
+        run: |
+          cd $GITHUB_WORKSPACE/backend
+          rm -rf softi13n/frontend/static
+          mv $GITHUB_WORKSPACE/frontend/public softi13n/frontend/static
+          git config user.name softi13n
+          git config user.email ${{ secrets.USER_EMAIL }}
+          git add .
+          git diff --quiet && git diff --staged --quiet || git commit -am "[github actions] update frontend static"
+          git push
