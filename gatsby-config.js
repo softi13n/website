@@ -1,5 +1,5 @@
 module.exports = {
-  pathPrefix: `/gatsby-intl-soft`,
+  assetPrefix: "/static/",
   siteMetadata: {
     title: "Softi13n",
     siteUrl: "https://todaywillnotend.github.io/gatsby-intl-soft/",

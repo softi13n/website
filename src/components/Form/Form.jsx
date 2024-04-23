@@ -35,24 +35,28 @@ export const Form = () => {
     event.preventDefault();
 
     try {
-      // Тут делаем запрос
-      // const url = "";
-      // await fetch(url, {
-      //   method: "POST", // *GET, POST, PUT, DELETE, etc.
+      const url = "http://51.250.31.127/backend/form";
+      const response = await fetch(url, {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
       //   mode: "cors", // no-cors, *cors, same-origin
       //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
       //   credentials: "same-origin", // include, *same-origin, omit
-      //   headers: {
-      //     "Content-Type": "application/json",
+        headers: {
+          "Content-Type": "application/json",
       //     // 'Content-Type': 'application/x-www-form-urlencoded',
-      //   },
+        },
       //   redirect: "follow", // manual, *follow, error
       //   referrerPolicy: "no-referrer", // no-referrer, *client
-      //   body: JSON.stringify(data), // body data type must match "Content-Type" header
-      // });
+        body: JSON.stringify(formData), // body data type must match "Content-Type" header
+      });
+
+      // возможно это некорректный код, т.к. fetch асинхронный?
+      if (response.status != 200) { 
+        throw "response.status != 200";
+      }
 
       alert(successMessage);
-      setFormData(initialFormData);
+      setFormData(formData);
     } catch (error) {
       console.error(error);
       alert(errorMessage);
@@ -129,17 +133,17 @@ export const Form = () => {
         </button>
       </div>
       <div className="form__social">
-        <a className="social" href="mailto:sales@softin.ru" target="__blank">
+        <a className="social" href="mailto:company@softi13n.com" target="__blank">
           <StaticImage src="../../images/icon-mail.png" width={40} />
-          sales@softin.ru
+          company@softi13n.com
         </a>
         <a className="social" href="https://t.me/softi13n" target="__blank">
           <StaticImage src="../../images/icon-tg.png" width={40} />
           t.me/softi13n
         </a>
-        <a className="social" href="https://wa.me/" target="__blank">
+        <a className="social" href="https://wa.me/79939190088" target="__blank">
           <StaticImage src="../../images/icon-wa.png" width={40} />
-          +7 (999) 999 99 99
+          +7 (993) 919-00-88
         </a>
       </div>
     </form>
