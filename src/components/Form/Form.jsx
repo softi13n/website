@@ -35,7 +35,7 @@ export const Form = () => {
     event.preventDefault();
 
     try {
-      const url = "http://51.250.31.127/backend/form";
+      const url = "https://website-django-eight.vercel.app/backend/form";
       const response = await fetch(url, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
       //   mode: "cors", // no-cors, *cors, same-origin
